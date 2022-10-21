@@ -96,12 +96,19 @@ export class AuthService {
         tap((res:any) => {
           if(res.status == 'success'){
             this.isLoggedIn = true;
-            this.login({
-              email:res.user.email,
-              password:credentials.password
-            })
+
+            this.handleUserAuth(
+              {email:res.user.email,
+                password:'',
+                token:res.authorisation.token,
+                _tokenExpirationDate:new Date().setHours(new Date().getHours() + 1)
+              }
+            )
           }else{
-            this.toast.error(res.status,res.message)
+            for(let i=0;i<Object.entries(res.message).length;i++){
+              this.toast.error(res.status,Object.values(res.message)[i] as string)
+            }
+            
           }
           
           },err=>{
