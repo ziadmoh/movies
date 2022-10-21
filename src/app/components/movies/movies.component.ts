@@ -108,6 +108,7 @@ export class MoviesComponent implements OnInit {
   getMoviesList(){
     this.ac.queryParams.subscribe(params =>{
       if(params.categoryId){
+        this.selectedCategoryId = params.categoryId;
         this.listByCategory(params.categoryId)
       }else{
         this.getAllMovies();

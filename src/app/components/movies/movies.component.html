@@ -29,7 +29,7 @@
                 [style.backgroundRepeat]="'no-repeat'"></div>
                 <div  class="card-body" 
                 [style.opacity]="moviesDescVisibilty[i] ? '1' : '0'" [style.visibility]="moviesDescVisibilty[i] ? 'visible' : 'hidden'">
-                    <div class="d-flex flex-row align-items-center justify-content-between movie-header">
+                    <div class="d-flex flex-row align-items-center justify-content-between movie-header mb-3">
                         <h5 class="text-uppercase m-0">{{movie.name}}</h5>
                         <i class="pi pi-ellipsis-v action-icon" 
                         (click)="selectedMovie = movie;menu.toggle($event)"></i>

@@ -28,7 +28,7 @@
         position: absolute;
         bottom: 0px;
         left: 0px;
-        background-color:rgba(73, 73, 73, 0.9);
+        background-color:rgba(55,55,180, 0.9);
         width: 100%;
         height: fit-content;
         display: flex;
@@ -38,10 +38,21 @@
        // border-bottom: 3px solid #007BFF;
        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
        .movie-header{
+        
+        h5{
+          color: #ffffff;
+        }
         .action-icon{
             cursor: pointer;
             font-size: 17px;
-            color: #007BFF;
+            color: #ffffff;
+            border-radius: 5px;
+            padding: 8px;
+            &:hover{
+              transition: .4s all ease-out;
+              color: #3737B0;
+              background: #fff;
+            }
         }
        }
         p{
