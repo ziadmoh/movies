@@ -14,6 +14,10 @@ import {ToastModule} from 'primeng/toast';
 import {CalendarModule} from 'primeng/calendar';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {BadgeModule} from 'primeng/badge';
+import {CardModule} from 'primeng/card';
+import {FileUploadModule} from 'primeng/fileupload';
+import {SkeletonModule} from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -30,7 +34,11 @@ import {InputNumberModule} from 'primeng/inputnumber';
     ToastModule,
     CalendarModule,
     MultiSelectModule,
-    InputNumberModule
+    InputNumberModule,
+    BadgeModule,
+    CardModule,
+    FileUploadModule,
+    SkeletonModule
   ],
 })
 export class PrimeNgModule {}

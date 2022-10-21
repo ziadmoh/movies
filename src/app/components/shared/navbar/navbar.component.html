@@ -1,30 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light admin-nav m-4">
   <div class="container-fluid">
-
-    <button type="button" id="sidebarCollapse" class="btn btn-primary btn-nav-toggle" (click)="toggleAside()">
-      <i class="fa-solid fa-bars"></i>
-      <span class="sr-only">Toggle Menu</span>
-    </button>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- <button class="btn btn-dark d-inline-block d-lg-none mr-auto btn-nav-toggle" 
-    type="button" data-toggle="collapse" 
-    data-target="#navbarSupportedContent" 
-    aria-controls="navbarSupportedContent" 
-    aria-expanded="false" 
-    aria-label="Toggle navigation">
-        <i class="fa-solid fa-bars"></i>
-    </button> -->
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav navbar-nav mr-auto">
-      
-        <!-- <li class="nav-item mx-3">
-            <a class="nav-link" routerLink="/" >الرئيسية</a>
-        </li> -->
+      <ul class="nav navbar-nav mr-auto d-flex flex-md-row align-items-md-center">
+        <li routerLinkActive="active" routerLink="/" class="mx-3 my-1">
+          <a class="site-link " >
+            <span class="d-flex flex-column align-items-center">
+              <img src="assets/img/logo.png" class="logo">
+              <small>Movies</small>
+            </span>
+            
+             </a>
+        </li>
+        <li routerLinkActive="active" routerLink="movies" class="mx-3 my-1">
+          <a class="site-link " >
+            <i class="fa-solid fa-tv mx-1"></i>Movies </a>
+        </li>
+        
+        
+        
+        
+
+      </ul>
+      <ul class="nav navbar-nav ml-auto">
         <li class="nav-item mx-3">
-            <a class="nav-link" href="javascript:;" (click)="logOut()">تسجيل الخروج</a>
+            <a class="nav-link" href="javascript:;" (click)="logOut()">Logout</a>
         </li>
         
 

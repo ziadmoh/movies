@@ -17,3 +17,23 @@
     font-family: 'Tajawal', sans-serif;
     margin: 0 !important;
 }
+li{
+    .site-link{
+        font-family: 'TheSans', sans-serif;
+        font-size: 14px;
+        font-weight: 900;
+        border: none !important;
+        cursor: pointer;
+    }
+    &.active{
+        .site-link{
+            color: #00336B !important;
+        }
+    }
+    &:hover{
+        color: #fddb19;
+    }
+}
+.logo{
+    width: 120px;
+}

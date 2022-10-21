@@ -1,1 +1,128 @@
-<p>movies works!</p>
+<div class="container-fluid">
+        <div class="d-flex flex-row justify-content-center categories-container" *ngIf="isCategoriesLoaded && categories.length">
+
+            <span class="m-2 category badge badge-primary" (click)="resetFilter()">All</span>
+            <span *ngFor="let category of categories" class="m-2 category badge badge-primary" (click)="listByCategory(category.id)"  
+            [style.backgroundColor]="selectedCategoryId === category.id ? '#303083':'' ">{{category.name}}</span>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center categories-container" *ngIf="!isCategoriesLoaded">
+
+            <p-skeleton width="75px" height="27px" borderRadius="0.25rem" class="m-2" *ngFor="let number of [0,1,2,3,4,5,6]"></p-skeleton>
+            
+        </div>
+
+        <div class="d-flex flex-row justify-content-center categories-container" *ngIf="isCategoriesLoaded && !categories.length">
+            <h5>No Available categories yet!</h5>
+        </div>
+    <div class="d-flex flex-row justify-content-between align-items-center px-4 my-3">
+        <h2 class="font-weight-bold">Movies</h2>
+        <button class="btn btn-primary font-weight-bold" (click)="showAddDialog()" >New Movie</button>
+    </div>
+    <div class="row my-2" *ngIf="isMoviesLoaded && filteredMovies.length">
+        
+        <div class="col-md-3 px-2 my-2" *ngFor="let movie of filteredMovies;let i =index">
+            <div class="card movie-card" (mouseover)="onMouseEnterMovie(i)" (mouseleave)="onMouseLeaveMovie(i)">
+                <div   class="movie-img" 
+                [style.background]="'url(https://test-api.storexweb.com/' + movie.image + ')'"
+                [style.backgroundSize]="'cover'" 
+                [style.backgroundRepeat]="'no-repeat'"></div>
+                <div  class="card-body" 
+                [style.opacity]="moviesDescVisibilty[i] ? '1' : '0'" [style.visibility]="moviesDescVisibilty[i] ? 'visible' : 'hidden'">
+                    <div class="d-flex flex-row align-items-center justify-content-between movie-header">
+                        <h5 class="text-uppercase m-0">{{movie.name}}</h5>
+                        <i class="pi pi-ellipsis-v action-icon" 
+                        (click)="selectedMovie = movie;menu.toggle($event)"></i>
+                    </div>
+                    
+                    <p>{{movie.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap my-2" *ngIf="!isMoviesLoaded">
+        <p-skeleton  size="310px" borderRadius="0.25rem" class="m-2" *ngFor="let number of [0,1,2,3,4,5,6]"></p-skeleton>
+        
+    </div>
+    <div class="row my-2" *ngIf="isMoviesLoaded && !filteredMovies.length">
+
+        <h4>No movies added yet!</h4>
+        
+    </div>
+</div>
+<!-- Actions menu -->
+<p-menu #menu [popup]="true" [model]="actionList" appendTo="body"></p-menu>
+
+<!-- Add modal -->
+<p-dialog [dismissableMask]="true"  #addDialog header="New movie" [(visible)]="visibleAddDialog" [modal]="true" [draggable]="false" [style]="{width: '50vw'}">
+    <form class="row my-4" [formGroup]="newMovieForm" (ngSubmit)="onAddMovie()">
+        
+        <div class="col-md-12 form-group my-4">
+            <p-fileUpload (onSelect)="onUpload($event)"
+                    [multiple]="false" accept="image/*"
+                    [showUploadButton]="false" [showCancelButton]="false"
+                    chooseLabel="Add movie image"
+                    [files]="uploadedImgs">
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="uploadedImgs.length">
+                            <li *ngFor="let file of uploadedImgs">{{file.name}}</li>
+                        </ul>
+                    </ng-template>
+            </p-fileUpload>
+        </div>
+        <div class="col-md-6 form-group my-4">
+            <input class="form-control" type="text" placeholder="Name" formControlName="name">
+        </div>
+        <div class="col-md-6 form-group my-4">
+            <p-dropdown  appendTo="body" placeholder="Select category" [options]="categories" formControlName="category" optionLabel="name">
+            </p-dropdown>
+        </div>
+        <div class="col-md-12 form-group my-4">
+            <textarea class="form-control" rows="4" placeholder="description" formControlName="description"></textarea>
+        </div>
+        
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onAddMovie()" label="Add" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- Update modal -->
+<p-dialog [dismissableMask]="true"  #addDialog [header]="'Edit '+ selectedMovie.name" [(visible)]="visibleUpdateDialog" [modal]="true" [draggable]="false" [style]="{width: '50vw'}">
+    <form class="row my-4" [formGroup]="updateMovieForm" (ngSubmit)="onUpdateMovie()">
+        
+        <div class="col-md-12 form-group my-2 d-flex flex-row justify-content-center">
+            <div class="symbol-label" 
+            [style.background]=" 'url('+ selectedMovie.image +')' ">
+                <div class="upload-file d-flex" >
+                  <input type="file" class="pointer " (change)="selectFile($event)">
+                  <i class=" upload-file__icon text-muted fa-solid fa-arrow-up-from-bracket"></i>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6 form-group my-4">
+            <input class="form-control" type="text" placeholder="Name" formControlName="name">
+        </div>
+        <div class="col-md-6 form-group my-4">
+            <p-dropdown  appendTo="body" placeholder="Select category" [options]="categories" formControlName="category" optionLabel="name">
+            </p-dropdown>
+        </div>
+        <div class="col-md-12 form-group my-4">
+            <textarea class="form-control" rows="4" placeholder="description" formControlName="description"></textarea>
+        </div>
+        
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onUpdateMovie()" label="Update" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- Delete modal -->
+<p-dialog [dismissableMask]="true"  [header]="'Delete '+ selectedMovie.name " [(visible)]="visibledeleteDialog" [modal]="true" [draggable]="false" [style]="{width: '50vw'}">
+   
+    <p class=""> Are you sure you want to delete this move?</p>
+    <ng-template pTemplate="footer">
+        <p-button class="" icon="pi pi-check" (click)="onDeleteMovie()" label="Delete" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

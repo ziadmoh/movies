@@ -20,7 +20,6 @@ export interface AuthResponseData {
   providedIn: 'root'
 })
 export class AuthService {
- // user!: SocialUser;
   isLoggedIn: boolean = false;
   constructor(private http: HttpClient,
               private router:Router,
@@ -30,25 +29,24 @@ export class AuthService {
             
 
   newUser = new BehaviorSubject<User>(null!);
-  //errorSub = new Subject<string>();// FaceBook Sign in and Sign Out //////////////////////////////////////////////////////////////
 
+  private tokenExpirationTimer: any;
 
-/// Handle Auth ///////////////////////////////////////////////////////////////////////
   private handleUserAuth(
     user:User,
-    token:string
   ) {
     const userNew :User = {
       email:user.email ? user.email :'',
       password:'',
-      token:token,
+      token:user.token,
+      _tokenExpirationDate:user._tokenExpirationDate
     }
-    //= new User(userId,'','','','','','',false,0,'','');
     this.newUser.next(userNew);
+    this.autoLogout();
     localStorage.setItem(
       'user', JSON.stringify(userNew)
     );
-      this.router.navigate(['/system'])
+    this.router.navigate(['/system'])
   
     
   }
@@ -68,8 +66,11 @@ export class AuthService {
           if(res.status == 'success'){
             this.isLoggedIn = true;
             this.handleUserAuth(
-              {email:credentials.email,password:credentials.password,token:res.authorisation.token},
-              res.authorisation.token
+              {email:credentials.email,
+                password:credentials.password,
+                token:res.authorisation.token,
+                _tokenExpirationDate:new Date().setHours(new Date().getHours() + 1)
+              }
             );
           }else{
             this.toast.error(res.status,res.message)
@@ -120,11 +121,13 @@ export class AuthService {
       email:user.email ? user.email :'',
       password:'',
       token:user.token,
+      _tokenExpirationDate:user._tokenExpirationDate
     }
 
     if (loadedUser.token) {
       this.newUser.next(loadedUser);
       this.isLoggedIn = true;
+      this.autoLogout();
     }
   }
 
@@ -132,9 +135,18 @@ export class AuthService {
     this.newUser.next(null!);
     this.isLoggedIn = false;
     localStorage.removeItem('user');
-    //this.router.navigate(['/']);
-    window.location.href = '/login'
+    this.router.navigate(['/login']);
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
   }
+
+    autoLogout() {
+      this.tokenExpirationTimer = setTimeout(() => {
+        this.logout();
+      }, 3600*1000);
+    }
 
 
 }

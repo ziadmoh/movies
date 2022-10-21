@@ -1,0 +1,107 @@
+.categories-container{
+    border-bottom: 1px solid #e2e2e2;
+    padding: 15px 5px 10px;
+    flex-wrap: wrap;
+
+    .category{
+        font-size: 18px;
+        cursor: pointer;
+        &:hover{
+            opacity: .6;
+            transition: .1s all ease-in;
+        }
+    }
+    .active-category{
+        background-color: #303083;
+    }
+}
+
+.movie-card{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    position: relative;
+    .movie-img{
+        width: 320px;
+        height: 350px;
+    }
+    .card-body{
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        background-color:rgba(73, 73, 73, 0.9);
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        transition:.4s all ease-out ;
+       // border-bottom: 3px solid #007BFF;
+       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+       .movie-header{
+        .action-icon{
+            cursor: pointer;
+            font-size: 17px;
+            color: #007BFF;
+        }
+       }
+        p{
+            color: #ffffff;
+          //  min-height: 155px;
+        }
+    }
+}
+.form-control{
+    height: 100%;
+    margin: 0;
+}
+
+::ng-deep{
+    .p-dropdown.p-component{
+        width: 100%;
+    }
+}
+
+.symbol-label {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    
+    border-radius: .675rem;
+  .upload-file {
+    cursor: pointer;
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: .6;
+    transition: 0.3s;
+    input {
+        cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 2;
+    }
+    &__icon {
+      font-size: 3rem;
+      opacity: 0.8;
+      color: #fff !important;
+    }
+  }
+  &:hover {
+    .upload-file {
+      opacity: 1;
+    }
+  }
+}

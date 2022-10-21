@@ -21,16 +21,10 @@ export class AuthInterceptorService implements HttpInterceptor {
           return next.handle(req);
         }
           let modifiedReq;
-          if (req.body instanceof FormData) {
-              modifiedReq =  req.clone({
-                body: req.body.append('token',user.token)
-              })
-          }else{
-            modifiedReq =  req.clone({
-              body:{token: user.token,...req.body} 
-            })
-          }
-        
+          modifiedReq =  req.clone({
+            headers: req.headers.append('Authorization','Bearer ' +user.token)
+          })
+          
         return next.handle(modifiedReq);
       })
     );

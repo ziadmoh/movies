@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PrimeNgModule } from './modules/prime-ng.module';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -21,7 +20,6 @@ import { RegisterComponent } from './auth/register/register.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    SidebarComponent,
     LoginComponent,
     SystemInitialComponent,
     NotFoundComponent,

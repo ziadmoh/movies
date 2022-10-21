@@ -19,6 +19,12 @@ export class AppSharedService {
 		
 	}
 
+	getImageFromUrl(url){
+        return this.http.get(url,{responseType: "blob"})
+    }
+
+	
+
 
 
 

@@ -11583,7 +11583,7 @@
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
-    color: #DC4F3F;
+    
   
     &:hover, &:focus {
       text-decoration: none !important;
@@ -11830,16 +11830,3 @@
     transition: all 0.3s;
   }
   
-  .btn.btn-primary {
-    background: #DC4F3F;
-    border-color: #DC4F3F;
-  
-    &:hover, &:focus {
-      background: #DC4F3F !important;
-      border-color: #DC4F3F !important;
-    }
-  }
-  .main-page-container{
-    //background: #fff;
-    margin: 15px
-  }

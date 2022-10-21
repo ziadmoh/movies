@@ -21,7 +21,7 @@ import {
       router: RouterStateSnapshot
     ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
       let user = JSON.parse(localStorage.getItem('user') as string)
-      if(user && user.userId){
+      if(user && user.email){
         return true;
       }else{
         return this.router.createUrlTree(['/login']);
